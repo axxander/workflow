@@ -11,8 +11,7 @@ steps:
   - |
     cat vars/build/default.env >> /workspace/.env
     cat vars/build/prod.env >> /workspace/.env
-    export DOCKER_TAG=tmp
-    echo "DOCKER_TAG=$DOCKER_TAG" >> /workspace/.env
+    echo "DOCKER_TAG=tmp" >> /workspace/.env
 
 # - name: 'gcr.io/cloud-builders/docker'
 #   id: 'build test image'
