@@ -1,4 +1,4 @@
-FROM python:3.9.13-slim as pycog
+FROM python:3.9.13-slim
 
 COPY main.py /opt/
 
