@@ -1,13 +1,8 @@
 steps:
 
 - name: 'bash'
-  args: ['ls']
-
-- name: 'bash'
+  id: 'rm docker-compose.override.yml to rm volumes'
   args: ['rm', 'docker-compose.override.yml']
-
-- name: 'bash'
-  args: ['ls']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
@@ -16,3 +11,5 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   id: 'run tests'
   args: ['run', 'workflow-tests']
+
+# STAGES
