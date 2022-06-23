@@ -1,0 +1,7 @@
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'build test image'
+  args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'run tests'
+  args: ['run', 'workflow-tests']
