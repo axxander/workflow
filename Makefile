@@ -1,14 +1,15 @@
 # CI/CD related commands
 # SERVICE: workflow or workflow-tests
+# This looks strange because in cloud build, docker is an alias for docker-compose
 build-ci:
-	docker-compose build $(SERVICE)
+	docker build $(SERVICE)
 
 push-ci:
 	docker tag ${IMAGE_REGISTRY}/$(SERVICE):${DOCKER_TAG} ${IMAGE_REGISTRY}/$(SERVICE):latest
-	docker-compose push $(SERVICE)
+	docker push $(SERVICE)
 
 run-ci:
-	docker-compose run $(SERVICE)
+	docker run $(SERVICE)
 
 # Local
 install-deps:  ## install python requirements into your virtual env
