@@ -7,11 +7,28 @@ services:
       context: .
       dockerfile: Dockerfile
       target: workflow
+    args:  # build time variables
+      - IMAGE_REGISTRY
+    cache_from:
+      # - ${IMAGE_REGISTRY}/workflow:${CACHE_TAG}  # GCR latest build related to a branch?
+      - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build prod image
+    env_file:
+      - ./vars/env/default.env
+      - ./vars/env/{ENV}.env
 
   workflow-tests:
     build:
       context: .
       dockerfile: Dockerfile
       target: workflow-tests
+    args:  # build time variables
+      - IMAGE_REGISTRY
+    cache_from:
+      # - ${IMAGE_REGISTRY}/workflow-tests:${CACHE_TAG}  # GCR latest build related to a branch?
+      - ${IMAGE_REGISTRY}/workflow-tests:latest  # GCR latest build test image
+      - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build image
     depends_on:
       - workflow
+    env_file:
+      - ./vars/env/default.env
+      - ./vars/env/{ENV}.env
