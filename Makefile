@@ -1,3 +1,16 @@
+# CI/CD related commands
+# SERVICE: workflow or workflow-tests
+build-ci:
+	docker-compose build $(SERVICE)
+
+push-ci:
+	docker tag ${IMAGE_REGISTRY}/$(SERVICE):${DOCKER_TAG} ${IMAGE_REGISTRY}/$(SERVICE):latest
+	docker-compose push $(SERVICE)
+
+run-ci:
+	docker-compose run $(SERVICE)
+
+# Local
 install-deps:  ## install python requirements into your virtual env
 	pip install -U pip pip-tools
 	pip-sync requirements.txt requirements-dev.txt
@@ -14,7 +27,7 @@ build:
 	docker-compose build $(IMAGE)
 
 run:
-	docker-compose run workflow $(ENTRYPOINT) $(DIRECTORY)
+	docker-compose run workflow $(DIRECTORY)
 
 run-tests:
 	docker-compose run workflow-tests $(DIRECTORY)
