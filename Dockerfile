@@ -1,4 +1,4 @@
-# Stage 1: PyCog image
+# Stage 1: workflow image
 FROM python:3.9.13-slim as workflow
 
 # Entry point related commands
@@ -10,7 +10,7 @@ RUN mkdir -p /venv
 RUN python -m venv /venv/ && \
     /venv/bin/python -m pip install -U --no-cache-dir pip pip-tools
 
-# # Copy and install PyCog requirements
+# # Copy and install workflow requirements
 COPY requirements.txt /tmp/requirements.txt
 RUN /venv/bin/pip-sync /tmp/requirements.txt --pip-args "--no-cache-dir"
 
@@ -27,7 +27,7 @@ WORKDIR /opt/
 ENTRYPOINT [ "/entry.sh" ]
 
 
-# Stage 2: PyCog test image
+# Stage 2: workflow test image
 FROM workflow AS workflow-tests
 
 # Entry point related commands
@@ -35,7 +35,7 @@ COPY entry.tests.sh /
 RUN chmod +x /entry.tests.sh
 
 # Copy virtual env from previous stage
-COPY --from=pycog /venv /venv
+COPY --from=workflow /venv /venv
 
 # Install dev/test dependencies
 COPY requirements-dev.txt /tmp/requirements-dev.txt
