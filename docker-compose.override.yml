@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+
+  workflow:
+    volumes:
+      - ./src:/opt/src
+
+  workflow-tests:
+    volumes:
+      - ./src:/opt/src
+      - ./tests:/opt/tests

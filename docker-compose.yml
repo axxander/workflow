@@ -6,3 +6,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: workflow
+
+  workflow-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: workflow-tests
+    depends_on:
+      - workflow
