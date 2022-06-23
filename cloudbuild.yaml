@@ -1,5 +1,14 @@
 steps:
 
+- name: 'bash'
+  args: ['ls']
+
+- name: 'bash'
+  args: ['rm', 'docker-compose.override.yml']
+
+- name: 'bash'
+  args: ['ls']
+
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
   args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
