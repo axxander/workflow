@@ -7,7 +7,13 @@ steps:
 - name: 'docker/compose'
   id: 'build test image'
   # args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
-  args: ['build', 'workflow-tests']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    source vars/build/default.env
+    source vars/build/prod.env
+    docker build workflow-tests
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'run tests'
