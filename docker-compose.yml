@@ -15,7 +15,8 @@ services:
       # - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build prod image
     env_file:
       - ./vars/env/default.env
-      - ./vars/env/{ENV}.env
+      - ./vars/env/prod.env
+      # - ./vars/env/{ENV}.env
 
   workflow-tests:
     build:
@@ -33,4 +34,5 @@ services:
       - workflow
     env_file:
       - ./vars/env/default.env
-      - ./vars/env/{ENV}.env
+      - ./vars/env/prod.env
+      # - ./vars/env/{ENV}.env
