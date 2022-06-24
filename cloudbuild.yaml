@@ -7,13 +7,14 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
   # args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    source vars/build/default.env
-    source vars/build/prod.env
-    ENV=$$ENV IMAGE_REGISTRY=$$IMAGE_REGISTRY docker build workflow-tests
+  args: ['build', 'workflow-tests']
+  # entrypoint: 'bash'
+  # args:
+  # - '-c'
+  # - |
+  #   source vars/build/default.env
+  #   source vars/build/prod.env
+  #   ENV=$$ENV IMAGE_REGISTRY=$$IMAGE_REGISTRY docker build workflow-tests
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'run tests'
