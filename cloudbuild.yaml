@@ -15,6 +15,8 @@ steps:
 - name: 'docker'
   id: 'Build test image'
   args: ['compose', 'build', 'workflow-tests']
+  env:
+    - 'ENV=prod'
 
 # - name: 'docker'
 #   id: 'Build test image'

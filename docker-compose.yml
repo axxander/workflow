@@ -8,14 +8,14 @@ services:
       dockerfile: Dockerfile
       target: workflow
     # args:  # build time variables
-      # - ENV  # to build correct image and load correct env vars
-      # - IMAGE_REGISTRY  # to build image correctly
+    #   - ENV  # to build correct image and load correct env vars
+    #   - IMAGE_REGISTRY  # to build image correctly
     # cache_from:
       # - ${IMAGE_REGISTRY}/workflow:${CACHE_TAG}  # GCR latest build related to a branch?
       # - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build prod image
     env_file:
       - ./vars/env/default.env
-      - ./vars/env/${ENV}.env
+      - ./vars/env/${ENV}.env  # shell env var
 
   workflow-tests:
     build:
