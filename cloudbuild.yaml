@@ -27,7 +27,7 @@ steps:
 #     source /workspace/.env
 #     docker compose build workflow-tests
 
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'docker'
   id: 'Run tests'
   args: ['compose', 'run', 'workflow-tests']
   env:
