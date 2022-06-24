@@ -1,5 +1,9 @@
 steps:
 
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Checking the version used'
+  args: ['--version']
+
 - name: 'bash'
   id: 'Delete ancillary docker-compose files'
   args: ['rm', 'docker-compose.override.yml']
