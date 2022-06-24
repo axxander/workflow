@@ -9,7 +9,6 @@ steps:
   args: ['compose', 'build', 'workflow-tests']
   env:
     - 'ENV=prod'
-    - 'IMAGE_REGISTRY=madecom-dev-alex-gregory'
 
 - name: 'docker'
   id: 'Run tests'
@@ -22,9 +21,9 @@ steps:
   args:
   - '-c'
   - |
-    tag workflow-tests $$IMAGE_REGISTRY/workflow-tests:latest
+    tag workflow-tests $PROJECT_ID/workflow-tests:latest
 
-images: ['gcr.io/$$IMAGE_REGISTRY/workflow-tests:latest']
+images: ['gcr.io/$PROJECT_ID/workflow-tests:latest']
 
 # - name: 'docker'
 #   id: 'Tag and push test image'
