@@ -30,6 +30,8 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   id: 'Run tests'
   args: ['compose', 'run', 'workflow-tests']
+  env:
+    - 'ENV=prod'
 
 # - name: 'gcr.io/cloud-builders/docker'
 #   id: 'build test image'
