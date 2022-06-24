@@ -5,9 +5,13 @@ steps:
   args: ['rm', 'docker-compose.override.yml']
 
 - name: 'gcr.io/cloud-builders/docker'
+  id: 'view options'
+  args: ['--help']
+
+- name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
   # args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
-  args: ['compose' ,'build', 'workflow-tests']
+  args: ['compose', 'build', 'workflow-tests']
   # entrypoint: 'bash'
   # args:
   # - '-c'
