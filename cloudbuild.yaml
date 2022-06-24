@@ -16,14 +16,12 @@ steps:
   env:
     - 'ENV=prod'
 
-- name: 'docker'
+- name: 'gcr.io/cloud-builders/docker'
   id: "Tag test image"
-  args:
-  - '-c'
-  - |
-    tag workflow-tests:latest gcr.io/$PROJECT_ID/workflow-tests:latest
+  args: ['tag', 'workflow-tests:latest' ,'gcr.io/$PROJECT_ID/workflow-tests']
 
-images: ['gcr.io/$PROJECT_ID/workflow-tests:latest']
+images:
+  - 'gcr.io/$PROJECT_ID/workflow-tests:latest'
 
 # - name: 'docker'
 #   id: 'Tag and push test image'
