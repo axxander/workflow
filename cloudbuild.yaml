@@ -9,7 +9,7 @@ steps:
 #   args: ['compose*', '--help']
 
 - name: 'docker'
-  id: 'view options'
+  id: 'view'
   args: ['compose', '--help']
 
 - name: 'gcr.io/cloud-builders/docker'
