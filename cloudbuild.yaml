@@ -4,9 +4,22 @@ steps:
   id: 'Delete ancillary docker-compose files'
   args: ['rm', 'docker-compose.override.yml']
 
+- name: 'bash'
+  id: 'load env vars'
+  args:
+  - '-c'
+  - |
+    cat vars/build/default.env >> /workspace/.env
+    cat vars/build/prod.env >> /workspace/.env
+
 - name: 'docker'
   id: 'Build test image'
-  args: ['compose', 'build', 'workflow-tests']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    source /workspace/.env
+    docker compose build workflow-tests
 
 - name: 'docker'
   id: 'Run tests'
