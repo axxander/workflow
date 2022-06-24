@@ -4,13 +4,13 @@ steps:
   id: 'Delete ancillary docker-compose files'
   args: ['rm', 'docker-compose.override.yml']
 
-- name: 'bash'
-  id: 'load env vars'
-  args:
-  - '-c'
-  - |
-    cat vars/build/default.env >> /workspace/.env
-    cat vars/build/prod.env >> /workspace/.env
+# - name: 'bash'
+#   id: 'load env vars'
+#   args:
+#   - '-c'
+#   - |
+#     cat vars/build/default.env >> /workspace/.env
+#     cat vars/build/prod.env >> /workspace/.env
 
 - name: 'docker'
   id: 'Build test image'
