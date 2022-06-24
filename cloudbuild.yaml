@@ -7,10 +7,7 @@ steps:
 - name: 'docker/compose'
   id: 'build test image'
   # args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
-  args:
-  - '-c'
-  - |
-    docker-compose build workflow-tests
+  args: ['build', 'workflow-tests']
   # entrypoint: 'bash'
   # args:
   # - '-c'
