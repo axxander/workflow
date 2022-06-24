@@ -10,7 +10,7 @@ steps:
   args:
   - '-c'
   - |
-    -f docker-compose.yml build workflow-tests
+    -f docker-compose.yml build workflow-tests .
   # entrypoint: 'bash'
   # args:
   # - '-c'
