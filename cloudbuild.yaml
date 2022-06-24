@@ -18,7 +18,9 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   id: "Tag test image"
-  args: ['tag', 'workflow_workflow-tests:latest' ,'gcr.io/$PROJECT_ID/workflow-tests']
+  args: ['tag', '${COMPOSE_PROJECT_NAME}_workflow-tests:latest' ,'gcr.io/$PROJECT_ID/workflow-tests']
+  env:
+    - 'COMPOSE_PROJECT_NAME=$REPO_NAME'
 
 images:
   - 'gcr.io/$PROJECT_ID/workflow-tests:latest'
