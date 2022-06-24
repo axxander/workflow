@@ -23,7 +23,7 @@ steps:
 # Can use docker-compose commands directly as specified by https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/docker-compose
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
-  entrypoint: 'bash'
+  # entrypoint: 'bash'
   # args:
   # - '-c'
   # - |
