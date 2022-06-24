@@ -1,9 +1,5 @@
 steps:
 
-- name: 'gcr.io/cloud-builders/docker'
-  id: 'Checking the version used'
-  args: ['--version']
-
 - name: 'bash'
   id: 'Delete ancillary docker-compose files'
   args: ['rm', 'docker-compose.override.yml']
@@ -14,6 +10,7 @@ steps:
   env:
     - 'ENV=prod'
     - 'IMAGE_REGISTRY=madecom-dev-alex-gregory'
+  images: ['gcr.io/$$IMAGE_REGISTRY/workflow-tests:latest']
 
 - name: 'docker'
   id: 'Run tests'
