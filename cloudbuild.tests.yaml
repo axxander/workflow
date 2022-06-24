@@ -9,6 +9,8 @@ steps:
   args:
   - '-c'
   - |
+    cat vars/build/default.env >> /workspace/.env
+    cat vars/build/prod.env >> /workspace/.env
     echo "DOCKER_TAG=tmp" >> /workspace/.env
 
 # cat vars/build/default.env >> /workspace/.env
@@ -21,7 +23,13 @@ steps:
 # Can use docker-compose commands directly as specified by https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/docker-compose
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
-  args: ['build', 'workflow-tests']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    source /workspace/.env
+    docker build workflow-tests
+  # args: ['build', 'workflow-tests']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'run tests'
@@ -33,6 +41,7 @@ steps:
   args:
   - '-c'
   - |
+    source /workspace/.env
     docker tag $$IMAGE_REGISTRY/workflow-tests:$$DOCKER_TAG $$IMAGE_REGSITRY/workflow-tests:latest
     docker push workflow-tests
 
