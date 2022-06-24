@@ -4,7 +4,7 @@ steps:
   id: 'rm docker-compose.override.yml to rm volumes'
   args: ['rm', 'docker-compose.override.yml']
 
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'docker/compose'
   id: 'build test image'
   # args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
   args: ['build', 'workflow-tests']

@@ -25,13 +25,13 @@ update-deps:  ## update requirements: produces requirements.txt and requirement
 	make install-deps
 
 build:
-	docker-compose build $(IMAGE)
+	docker-compose build $(SERVICE)
 
 run:
-	docker-compose run workflow $(DIRECTORY)
+	docker-compose run workflow $(PIPELINE)
 
 run-tests:
-	docker-compose run workflow-tests $(DIRECTORY)
+	docker-compose run workflow-tests $(PIPELINE)
 
 down:  ## Bring all containers down
 	docker-compose kill -s9
