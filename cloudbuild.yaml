@@ -21,7 +21,7 @@ steps:
   args:
   - '-c'
   - |
-    tag workflow-tests gcr.io/$PROJECT_ID/workflow-tests:latest
+    tag workflow-tests:latest gcr.io/$PROJECT_ID/workflow-tests:latest
 
 images: ['gcr.io/$PROJECT_ID/workflow-tests:latest']
 
