@@ -10,13 +10,21 @@ steps:
   env:
     - 'ENV=prod'
     - 'IMAGE_REGISTRY=madecom-dev-alex-gregory'
-  images: ['gcr.io/$$IMAGE_REGISTRY/workflow-tests:latest']
 
 - name: 'docker'
   id: 'Run tests'
   args: ['compose', 'run', 'workflow-tests']
   env:
     - 'ENV=prod'
+
+- name: 'docker'
+  id: "Tag test image"
+  args:
+  - '-c'
+  - |
+    tag workflow-tests $$IMAGE_REGISTRY/workflow-tests:latest
+
+images: ['gcr.io/$$IMAGE_REGISTRY/workflow-tests:latest']
 
 # - name: 'docker'
 #   id: 'Tag and push test image'
