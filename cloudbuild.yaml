@@ -4,34 +4,26 @@ steps:
   id: 'Delete ancillary docker-compose files'
   args: ['rm', 'docker-compose.override.yml']
 
-# - name: 'bash'
-#   id: 'load env vars'
-#   args:
-#   - '-c'
-#   - |
-#     cat vars/build/default.env >> /workspace/.env
-#     cat vars/build/prod.env >> /workspace/.env
-
 - name: 'docker'
   id: 'Build test image'
   args: ['compose', 'build', 'workflow-tests']
   env:
     - 'ENV=prod'
-
-# - name: 'docker'
-#   id: 'Build test image'
-#   entrypoint: 'bash'
-#   args:
-#   - '-c'
-#   - |
-#     source /workspace/.env
-#     docker compose build workflow-tests
+    - 'IMAGE_REGISTRY=madecom-dev-alex-gregory'
 
 - name: 'docker'
   id: 'Run tests'
   args: ['compose', 'run', 'workflow-tests']
   env:
     - 'ENV=prod'
+
+# - name: 'docker'
+#   id: 'Tag and push test image'
+#   entrypoint: 'bash'
+#   args:
+#   - '-c'
+#   - |
+#     docker tag $$IMAGE_REGISTRY/workflow-tests:$$DOCKER_TAG $$IMAGE_REGISTRY/workflow-tests:latest
 
 # - name: 'gcr.io/cloud-builders/docker'
 #   id: 'build test image'
