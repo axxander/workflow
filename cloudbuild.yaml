@@ -6,7 +6,8 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
-  args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
+  # args: ['build', '-t', 'workflow-tests', '--target', 'workflow-tests', '.']
+  args: ['build', 'workflow-tests']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'run tests'
