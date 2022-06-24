@@ -6,7 +6,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'view options'
-  args: ['--help']
+  args: ['compose*', '--help']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build test image'
