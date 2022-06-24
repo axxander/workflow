@@ -1,20 +1,16 @@
 steps:
 
-# - name: 'bash'
-#   id: 'rm docker-compose.override.yml to rm volumes'
-#   args: ['rm', 'docker-compose.override.yml']
-
-# - name: 'gcr.io/cloud-builders/docker'
-#   id: 'view options'
-#   args: ['compose*', '--help']
+- name: 'bash'
+  id: 'Delete ancillary docker-compose files'
+  args: ['rm', 'docker-compose.override.yml']
 
 - name: 'docker'
-  id: 'view'
-  args: ['compose', '--help']
+  id: 'Build test image'
+  args: ['compose', 'build', 'workflow-tests']
 
-- name: 'gcr.io/cloud-builders/docker'
-  id: 'view options'
-  args: ['--help']
+- name: 'docker'
+  id: 'Run tests'
+  args: ['compose', 'run', 'workflow-tests']
 
 # - name: 'gcr.io/cloud-builders/docker'
 #   id: 'build test image'
