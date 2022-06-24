@@ -1,12 +1,20 @@
 steps:
 
-- name: 'bash'
-  id: 'rm docker-compose.override.yml to rm volumes'
-  args: ['rm', 'docker-compose.override.yml']
+# - name: 'bash'
+#   id: 'rm docker-compose.override.yml to rm volumes'
+#   args: ['rm', 'docker-compose.override.yml']
+
+# - name: 'gcr.io/cloud-builders/docker'
+#   id: 'view options'
+#   args: ['compose*', '--help']
+
+- name: 'docker'
+  id: 'view options'
+  args: ['compose', '--help']
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'view options'
-  args: ['compose*', '--help']
+  args: ['compose', '--help']
 
 # - name: 'gcr.io/cloud-builders/docker'
 #   id: 'build test image'
