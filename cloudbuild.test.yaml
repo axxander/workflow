@@ -7,7 +7,7 @@ steps:
 
 - name: 'docker'
   id: 'pull test image'
-  args: ['pull', '$$/workflow-tests:latest']
+  args: ['pull', '$$IMAGE_REGISTRY/workflow-tests:latest']
   env:
     - 'DOCKER_BUILDKIT=1'
     - 'COMPOSE_DOCKER_CLI_BUILD=1'
