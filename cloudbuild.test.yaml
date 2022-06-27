@@ -10,6 +10,8 @@ steps:
   id: 'Build test image'
   args: ['compose', 'build', 'workflow-tests']
   env:
+    - 'DOCKER_BUILDKIT=1'
+    - 'COMPOSE_DOCKER_CLI_BUILD=1'
     - 'ENV=prod'
     - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
 
