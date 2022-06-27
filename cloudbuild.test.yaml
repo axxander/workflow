@@ -1,0 +1,29 @@
+steps:
+
+# Preparation Stage
+- name: 'bash'
+  id: 'Delete ancillary docker-compose files'
+  args: ['rm', 'docker-compose.override.yml']
+
+# Build workflow-test image
+- name: 'gcr.io/$PROJECT_ID/docker-compose'
+  id: 'Build test image'
+  args: ['build', 'workflow-tests']
+  env:
+    - 'ENV=prod'
+
+# Run workflow-tests image
+- name: 'gcr.io/$PROJECT_ID/docker-compose'
+  id: 'Run tests'
+  args: ['run', 'workflow-tests']
+  env:
+    - 'ENV=prod'
+
+# Tag workflow-test image
+- name: 'gcr.io/cloud-builders/docker'
+  id: "Tag test image"
+  args: ['tag', 'workspace_workflow-tests:latest' ,'gcr.io/$PROJECT_ID/workflow-tests']
+
+# If builds in list below are successful in previous stages, this implicitly pushes them to GCR
+images:
+  - 'gcr.io/$PROJECT_ID/workflow-tests:latest'
