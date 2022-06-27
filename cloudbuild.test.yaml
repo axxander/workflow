@@ -21,6 +21,7 @@ steps:
   args: ['compose', 'run', 'workflow-tests']
   env:
     - 'ENV=prod'
+    - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
 
 # Tag workflow image
 - name: 'gcr.io/cloud-builders/docker'
