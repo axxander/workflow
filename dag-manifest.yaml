@@ -1,0 +1,18 @@
+project: workflow
+
+docker_tag: docker_tag_placeholder
+
+env_vars:
+  PROJECT_ROOT: /opt/
+  BIGQUERY_PROJECT: tmp
+  BIGQUERY_DATASET: tmp
+  BIGQUERY_ACCESS_TOKEN_PATH: tmp
+  GOOGLE_APPLICATION_CREDENTIALS: tmp
+  RUN_DATE: "{{ ds }}"
+
+jobs:
+
+  entrypoint-pycog-example:
+    name: entrypoint-workflow-example
+    entrypoint: pipeline example
+    node: analytics-general-worker

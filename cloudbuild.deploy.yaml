@@ -1,0 +1,37 @@
+steps:
+
+# Preparation Stage
+- name: 'bash'
+  id: 'Delete ancillary docker-compose files'
+  args: ['rm', 'docker-compose.override.yml']
+
+# Build workflow image
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build test image'
+  args: ['compose', 'build', 'workflow']
+  env:
+    - 'ENV=prod'
+    - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
+
+# Tag workflow image
+- name: 'gcr.io/cloud-builders/docker'
+  id: "Tag test image"
+  args: ['tag', 'workspace_workflow-tests:latest' ,'gcr.io/$PROJECT_ID/workflow-tests']
+
+# Deploy the DAG manifest
+- name: 'bash'
+  id: 'Inject image tag into the DAG manifest'
+  args:
+  - '-c'
+  - sed -i 's/docker_tag_placeholder/'$$DOCKER_TAG'/g' dag-manifest.yaml
+
+- name: 'gcr.io/cloud-builders/gsutil'
+  id: 'Deploy DAG manifest'
+  args: ['cp', '-r', 'dag-manifest.yaml', '$$GCS_BUCKET/$$DAG_MANIFEST_PATH']
+  env:
+    - 'GCS_BUCKET=gs://madecom-dev-alex-gregory-sandbox'
+    - 'DAG_MANIFEST_PATH=dags/workflow.yaml'
+
+# If builds in list below are successful in previous stages, this implicitly pushes them to GCR
+images:
+  - 'gcr.io/$PROJECT_ID/workflow:latest'
