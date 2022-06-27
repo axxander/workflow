@@ -6,7 +6,7 @@ steps:
   args: ['rm', 'docker-compose.override.yml']
 
 # Build workflow-test image
-- name: 'docker'
+- name: 'gcr.io/cloud-builders/docker'
   id: 'Build test image'
   args: ['compose', 'build', 'workflow-tests']
   env:
@@ -16,7 +16,7 @@ steps:
     - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
 
 # Run workflow-tests image
-- name: 'docker'
+- name: 'gcr.io/cloud-builders/docker'
   id: 'Run tests'
   args: ['compose', 'run', 'workflow-tests']
   env:
