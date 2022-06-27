@@ -7,7 +7,7 @@ steps:
 
 # Build workflow image
 - name: 'gcr.io/cloud-builders/docker'
-  id: 'Build test image'
+  id: 'Build prod image'
   args: ['compose', 'build', 'workflow']
   env:
     - 'ENV=prod'
@@ -15,8 +15,8 @@ steps:
 
 # Tag workflow image
 - name: 'gcr.io/cloud-builders/docker'
-  id: "Tag test image"
-  args: ['tag', 'workspace_workflow-tests:latest' ,'gcr.io/$PROJECT_ID/workflow-tests']
+  id: "Tag prod image"
+  args: ['tag', 'workspace_workflow:latest' ,'gcr.io/$PROJECT_ID/workflow']
 
 # Deploy the DAG manifest
 - name: 'bash'
