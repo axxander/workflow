@@ -6,7 +6,8 @@ steps:
   args: ['rm', 'docker-compose.override.yml']
 
 # Build workflow-test image
-- name: 'gcr.io/cloud-builders/docker'
+# - name: 'gcr.io/cloud-builders/docker'
+- name: 'docker'
   id: 'Build test image'
   args: ['compose', 'build', 'workflow-tests']
   env:
@@ -16,7 +17,8 @@ steps:
     - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
 
 # Run workflow-tests image
-- name: 'gcr.io/cloud-builders/docker'
+# - name: 'gcr.io/cloud-builders/docker'
+- name: 'docker'
   id: 'Run tests'
   args: ['compose', 'run', 'workflow-tests']
   env:
@@ -24,14 +26,16 @@ steps:
     - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
 
 # Tag workflow image
-- name: 'gcr.io/cloud-builders/docker'
+# - name: 'gcr.io/cloud-builders/docker'
+- name: 'docker'
   id: "Tag prod image"
   args: ['tag', 'workspace_workflow:latest' ,'gcr.io/$PROJECT_ID/workflow']
 
 # Tag workflow-test image
-- name: 'gcr.io/cloud-builders/docker'
+# - name: 'gcr.io/cloud-builders/docker'
+- name: 'docker'
   id: "Tag test image"
-  args: ['tag', 'workspace_workflow-tests:latest' ,'gcr.io/$PROJECT_ID/workflow-tests']
+  args: ['tag', 'workspace_workflow-tests:latest', 'gcr.io/$PROJECT_ID/workflow-tests']
 
 # If builds in list below are successful in previous stages, this implicitly pushes them to GCR
 images:
