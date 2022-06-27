@@ -19,6 +19,11 @@ steps:
   env:
     - 'ENV=prod'
 
+# Tag workflow image
+- name: 'gcr.io/cloud-builders/docker'
+  id: "Tag prod image"
+  args: ['tag', 'workspace_workflow:latest' ,'gcr.io/$PROJECT_ID/workflow']
+
 # Tag workflow-test image
 - name: 'gcr.io/cloud-builders/docker'
   id: "Tag test image"
@@ -26,4 +31,5 @@ steps:
 
 # If builds in list below are successful in previous stages, this implicitly pushes them to GCR
 images:
+  - 'gcr.io/$PROJECT_ID/workflow:latest'
   - 'gcr.io/$PROJECT_ID/workflow-tests:latest'
