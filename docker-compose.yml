@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
 
@@ -7,9 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
       target: workflow
-    cache_from:
-      # - ${IMAGE_REGISTRY}/workflow:${CACHE_TAG}  # GCR latest build related to a branch?
-      - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build prod image
+      cache_from:
+        # - ${IMAGE_REGISTRY}/workflow:${CACHE_TAG}  # GCR latest build related to a branch?
+        - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build prod image
     env_file:
       - ./vars/env/default.env
       - ./vars/env/${ENV}.env  # shell env var
@@ -21,10 +21,10 @@ services:
       context: .
       dockerfile: Dockerfile
       target: workflow-tests
-    cache_from:
-      # - ${IMAGE_REGISTRY}/workflow-tests:${CACHE_TAG}  # GCR latest build related to a branch?
-      - ${IMAGE_REGISTRY}/workflow-tests:latest  # GCR latest build test image
-      - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build image
+      cache_from:
+        # - ${IMAGE_REGISTRY}/workflow-tests:${CACHE_TAG}  # GCR latest build related to a branch?
+        - ${IMAGE_REGISTRY}/workflow-tests:latest  # GCR latest build test image
+        - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build image
     depends_on:
       - workflow
     env_file:
