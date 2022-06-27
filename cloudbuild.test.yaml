@@ -13,6 +13,13 @@ steps:
     - 'ENV=prod'
     - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
 
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build test image'
+  args: ['compose', 'build', 'workflow-tests']
+  env:
+    - 'ENV=prod'
+    - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
+
 # Run workflow-tests image
 - name: 'gcr.io/$PROJECT_ID/docker-compose'
   id: 'Run tests'
