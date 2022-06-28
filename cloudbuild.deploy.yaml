@@ -28,23 +28,26 @@ steps:
     - 'CACHE_TAG=$BRANCH_NAME.$SHORT_SHA'
 
 # Deploy the DAG manifest
-- name: 'bash'
+- name: 'gcr.io/cloud-builders/gsutil'
   id: 'Inject image tag into the DAG manifest'
+  entrypoint: 'bash'
   args:
   # args: ['sed', '-i', 's/docker_tag_placeholder/$$CACHE_TAG/g', 'dag-manifest.yaml']
   - '-c'
   - |
     sed -i "s/docker_tag_placeholder/$$CACHE_TAG/g" dag-manifest.yaml
-    cat dag-manifest.yaml
+    gsutil cp dag-manifest.yaml $$GCS_BUCKET/$$DAG_MANIFEST_PATH
   env:
     - 'CACHE_TAG=$BRANCH_NAME.$SHORT_SHA'
-
-- name: 'gcr.io/cloud-builders/gsutil'
-  id: 'Deploy DAG manifest'
-  args: ['cp', 'dag-manifest.yaml', '$$GCS_BUCKET/$$DAG_MANIFEST_PATH']
-  env:
     - 'GCS_BUCKET=gs://madecom-dev-alex-gregory-sandbox'
     - 'DAG_MANIFEST_PATH=dags/workflow.yaml'
+
+# - name: 'gcr.io/cloud-builders/gsutil'
+#   id: 'Deploy DAG manifest'
+#   args: ['cp', 'dag-manifest.yaml', '$$GCS_BUCKET/$$DAG_MANIFEST_PATH']
+#   env:
+#     - 'GCS_BUCKET=gs://madecom-dev-alex-gregory-sandbox'
+#     - 'DAG_MANIFEST_PATH=dags/workflow.yaml'
 
 images:
   - 'gcr.io/$PROJECT_ID/workflow'
