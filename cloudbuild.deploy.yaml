@@ -22,7 +22,6 @@ steps:
   args:
   - '-c'
   - |
-    ls
     docker tag workspace_workflow:latest gcr.io/$PROJECT_ID/workflow:$$CACHE_TAG
     docker tag workspace_workflow:latest gcr.io/$PROJECT_ID/workflow
   env:
