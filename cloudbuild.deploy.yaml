@@ -1,11 +1,11 @@
 steps:
 
-# Preparation Stage
+# Stage 1: Preparation
 - name: 'bash'
   id: 'Delete ancillary docker-compose files'
   args: ['rm', 'docker-compose.override.yml']
 
-# Build workflow image
+# Stage 2: Build production image
 - name: 'gcr.io/cloud-builders/docker'
   id: 'Build prod image'
   args: ['compose', 'build', 'workflow']
@@ -15,24 +15,24 @@ steps:
     - 'IMAGE_REGISTRY=gcr.io/$PROJECT_ID'
     - 'CACHE_TAG=$BRANCH_NAME.$SHORT_SHA'
 
-# Tag workflow image
+# Stage 3: Tag production image
 - name: 'gcr.io/cloud-builders/docker'
   id: "Tag prod image"
   entrypoint: 'bash'
   args:
   - '-c'
   - |
+    ls
     docker tag workspace_workflow:latest gcr.io/$PROJECT_ID/workflow:$$CACHE_TAG
     docker tag workspace_workflow:latest gcr.io/$PROJECT_ID/workflow
   env:
     - 'CACHE_TAG=$BRANCH_NAME.$SHORT_SHA'
 
-# Deploy the DAG manifest
+# Stage 4: Inject tag into DAG manifest and copy to GCS bucket
 - name: 'gcr.io/cloud-builders/gsutil'
   id: 'Inject image tag into the DAG manifest'
   entrypoint: 'bash'
   args:
-  # args: ['sed', '-i', 's/docker_tag_placeholder/$$CACHE_TAG/g', 'dag-manifest.yaml']
   - '-c'
   - |
     sed -i "s/docker_tag_placeholder/$$CACHE_TAG/g" dag-manifest.yaml
@@ -42,12 +42,6 @@ steps:
     - 'GCS_BUCKET=gs://madecom-dev-alex-gregory-sandbox'
     - 'DAG_MANIFEST_PATH=dags/workflow.yaml'
 
-# - name: 'gcr.io/cloud-builders/gsutil'
-#   id: 'Deploy DAG manifest'
-#   args: ['cp', 'dag-manifest.yaml', '$$GCS_BUCKET/$$DAG_MANIFEST_PATH']
-#   env:
-#     - 'GCS_BUCKET=gs://madecom-dev-alex-gregory-sandbox'
-#     - 'DAG_MANIFEST_PATH=dags/workflow.yaml'
-
+# Push images created in this CI/CD pipeline
 images:
   - 'gcr.io/$PROJECT_ID/workflow'
