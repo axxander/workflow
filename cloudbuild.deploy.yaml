@@ -33,7 +33,7 @@ steps:
   args:
   - '-c'
   - |
-    sed -i 's/docker_tag_placeholder/'$$CACHE_TAG'/g' dag-manifest.yaml
+    sed -i 's/docker_tag_placeholder/$$CACHE_TAG/g' dag-manifest.yaml
   env:
     - 'CACHE_TAG=$BRANCH_NAME.$SHORT_SHA'
 
