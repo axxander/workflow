@@ -39,7 +39,6 @@ steps:
 
 - name: 'gcr.io/cloud-builders/gsutil'
   id: 'Deploy DAG manifest'
-  entrypoint: 'bash'  # required for gsutil
   args: ['cp', 'dag-manifest.yaml', '$$GCS_BUCKET/$$DAG_MANIFEST_PATH']
   env:
     - 'GCS_BUCKET=gs://madecom-dev-alex-gregory-sandbox'
