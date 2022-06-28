@@ -46,8 +46,8 @@ steps:
   args:
   - '-c'
   - |
-    docker tag workspace_workflow-tests:latest gcr.io/$PROJECT_ID/workflow:$$CACHE_TAG
-    docker tag workspace_workflow-tests:latest gcr.io/$PROJECT_ID/workflow
+    docker tag workspace_workflow-tests:latest gcr.io/$PROJECT_ID/workflow-tests:$$CACHE_TAG
+    docker tag workspace_workflow-tests:latest gcr.io/$PROJECT_ID/workflow-tests
   # args: ['tag', 'workspace_workflow-tests:latest', 'gcr.io/$PROJECT_ID/workflow-tests:$$CACHE_TAG']
   env:
     - 'CACHE_TAG=$BRANCH_NAME.$SHORT_SHA'
@@ -55,7 +55,9 @@ steps:
 # If builds in list below are successful in previous stages, this implicitly pushes them to GCR
 # want to see if this pushes just the latest or all
 images:
-  - 'gcr.io/$PROJECT_ID/workflow:$BRANCH_NAME.$SHORT_SHA'
-  - 'gcr.io/$PROJECT_ID/workflow:latest'
-  - 'gcr.io/$PROJECT_ID/workflow-tests:$BRANCH_NAME.$SHORT_SHA'
-  - 'gcr.io/$PROJECT_ID/workflow-tests:latest'
+  # - 'gcr.io/$PROJECT_ID/workflow:$BRANCH_NAME.$SHORT_SHA'
+  # - 'gcr.io/$PROJECT_ID/workflow:latest'
+  # - 'gcr.io/$PROJECT_ID/workflow-tests:$BRANCH_NAME.$SHORT_SHA'
+  # - 'gcr.io/$PROJECT_ID/workflow-tests:latest'
+  - 'gcr.io/$PROJECT_ID/workflow'
+  - 'gcr.io/$PROJECT_ID/workflow-tests'
