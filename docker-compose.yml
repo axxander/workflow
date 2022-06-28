@@ -7,6 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: workflow
+      args:
+        - BUILDKIT_INLINE_CACHE=1
       cache_from:
         # - ${IMAGE_REGISTRY}/workflow:${CACHE_TAG}  # GCR latest build related to a branch?
         - ${IMAGE_REGISTRY}/workflow:latest  # GCR latest build prod image
@@ -21,6 +23,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: workflow-tests
+      args:
+        - BUILDKIT_INLINE_CACHE=1
       cache_from:
         # - ${IMAGE_REGISTRY}/workflow-tests:${CACHE_TAG}  # GCR latest build related to a branch?
         - ${IMAGE_REGISTRY}/workflow-tests:latest  # GCR latest build test image
